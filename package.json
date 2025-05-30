@@ -1,0 +1,25 @@
+{
+  "name": "tp_integrador_web",
+  "version": "1.0.0",
+  "description": "Proyecto integrador de WEB 2, pagina hospital\r comenzamos armando la estructura del codigo",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zapallozucchini/Tp_Integrador_Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zapallozucchini/Tp_Integrador_Web/issues"
+  },
+  "homepage": "https://github.com/Zapallozucchini/Tp_Integrador_Web#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "pug": "^3.0.3"
+  }
+}
