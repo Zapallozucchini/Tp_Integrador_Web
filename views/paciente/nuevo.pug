@@ -1,0 +1,38 @@
+extends ../layout.pug
+
+block content
+  h1 Registrar Nuevo Paciente
+  
+  if error
+    .error= error
+  
+  form(method="POST" action="/pacientes")
+    div
+      label(for="nombre") Nombre Completo:
+      input(type="text" name="nombre" required)
+    
+    div
+      label(for="fecha_nacimiento") Fecha de Nacimiento:
+      input(type="date" name="fecha_nacimiento" required)
+    
+    div
+      label(for="genero") Género:
+      select(name="genero" required)
+        option(value="") -- Seleccione --
+        option(value="Masculino") Masculino
+        option(value="Femenino") Femenino
+        option(value="Otro") Otro
+    
+    div
+      label(for="direccion") Dirección:
+      textarea(name="direccion")
+    
+    div
+      label(for="telefono") Teléfono:
+      input(type="tel" name="telefono")
+    
+    div
+      label(for="contacto_emergencia") Contacto de Emergencia:
+      input(type="text" name="contacto_emergencia")
+    
+    button(type="submit") Guardar
