@@ -58,3 +58,15 @@ app.use(async (req, res, next) => {
   res.locals.dbStatus = req.dbStatus;
   next();
 });
+
+
+
+// Importar rutas de pacientes
+const pacienteRoutes = require('./routes/pacienteRoutes');
+
+// ... (después de los middlewares)
+
+// Usar rutas de pacientes
+app.use('/pacientes', pacienteRoutes);
+
+// ... (código posterior)

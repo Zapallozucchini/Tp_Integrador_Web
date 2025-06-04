@@ -33,14 +33,23 @@ const crearPaciente = async (req, res) => {
   }
 };
 
-// Función para listar pacientes (se mantiene igual)
 const listarPacientes = async (req, res) => {
   try {
+    // Obtener todos los pacientes de la base de datos
     const [pacientes] = await req.db.promise().query('SELECT * FROM pacientes');
-    res.render('pacientes/index', { pacientes });
+    
+    // Renderizar la vista con los datos
+    res.render('pacientes/index', { 
+      pacientes,
+      title: 'Listado de Pacientes' 
+    });
+    
   } catch (error) {
     console.error("Error al obtener pacientes:", error);
-    res.status(500).send("Error al cargar los pacientes");
+    res.status(500).render('error', { 
+      message: "Error al cargar los pacientes",
+      error
+    });
   }
 };
 
