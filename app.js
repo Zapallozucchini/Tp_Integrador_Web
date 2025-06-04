@@ -42,3 +42,19 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor iniciado: http://localhost:${PORT}`);
 });
+ 
+// Middleware para hacer db accesible en todas las vistas
+app.use(async (req, res, next) => {
+  try {
+    const [result] = await db.promise().query('SELECT 1+1 AS solution');
+    req.dbStatus = result[0].solution === 2 
+      ? '✅ Conexión estable a la base de datos' 
+      : '⚠️ Conexión inesperada';
+  } catch (error) {
+    req.dbStatus = `❌ Error de conexión: ${error.message}`;
+  }
+  
+  // Hacer el estado disponible para todas las vistas
+  res.locals.dbStatus = req.dbStatus;
+  next();
+});

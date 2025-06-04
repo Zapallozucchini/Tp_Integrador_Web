@@ -1,38 +1,45 @@
 extends ../layout.pug
 
 block content
-  h1 Registrar Nuevo Paciente
-  
-  if error
-    .error= error
-  
-  form(method="POST" action="/pacientes")
-    div
-      label(for="nombre") Nombre Completo:
-      input(type="text" name="nombre" required)
-    
-    div
-      label(for="fecha_nacimiento") Fecha de Nacimiento:
-      input(type="date" name="fecha_nacimiento" required)
-    
-    div
-      label(for="genero") Género:
-      select(name="genero" required)
-        option(value="") -- Seleccione --
-        option(value="Masculino") Masculino
-        option(value="Femenino") Femenino
-        option(value="Otro") Otro
-    
-    div
-      label(for="direccion") Dirección:
-      textarea(name="direccion")
-    
-    div
-      label(for="telefono") Teléfono:
-      input(type="tel" name="telefono")
-    
-    div
-      label(for="contacto_emergencia") Contacto de Emergencia:
-      input(type="text" name="contacto_emergencia")
-    
-    button(type="submit") Guardar
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header.bg-primary.text-white
+          h5.card-title.mb-0 Registrar Nuevo Paciente
+        
+        .card-body
+          if error
+            .alert.alert-danger= error
+          
+          form(method="POST" action="/pacientes")
+            .mb-3
+              label.form-label(for="nombre") Nombre Completo
+              input.form-control(type="text" name="nombre" required)
+            
+            .row.mb-3
+              .col-md-6
+                label.form-label(for="fecha_nacimiento") Fecha de Nacimiento
+                input.form-control(type="date" name="fecha_nacimiento" required)
+              .col-md-6
+                label.form-label(for="genero") Género
+                select.form-select(name="genero" required)
+                  option(value="") -- Seleccione --
+                  option(value="Masculino") Masculino
+                  option(value="Femenino") Femenino
+                  option(value="Otro") Otro
+            
+            .mb-3
+              label.form-label(for="direccion") Dirección
+              textarea.form-control(name="direccion" rows="2")
+            
+            .row.mb-3
+              .col-md-6
+                label.form-label(for="telefono") Teléfono
+                input.form-control(type="tel" name="telefono")
+              .col-md-6
+                label.form-label(for="contacto_emergencia") Contacto de Emergencia
+                input.form-control(type="text" name="contacto_emergencia")
+            
+            button.btn.btn-primary(type="submit")
+              i.bi.bi-save.me-2
+              | Guardar
