@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block content
+  h1 Listado de Pacientes
+  a(href="/pacientes/nuevo") + Nuevo Paciente
+  
+  table
+    thead
+      tr
+        th ID
+        th Nombre
+        th F. Nacimiento
+        th Género
+        th Teléfono
+    tbody
+      each paciente in pacientes
+        tr
+          td= paciente.id
+          td= paciente.nombre
+          td= paciente.fecha_nacimiento
+          td= paciente.genero
+          td= paciente.telefono
