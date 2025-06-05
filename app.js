@@ -7,6 +7,10 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', './views');
 
+// Middleware para parsear datos de formularios y JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -36,7 +40,13 @@ app.use(async (req, res, next) => {
 // Importar rutas de pacientes
 const pacienteRoutes = require('./routes/pacienteRoutes');
 
-
+// Ruta de inicio
+app.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Sistema Hospitalario',
+    dbStatus: res.locals.dbStatus
+  });
+});
 
 // Usar rutas de pacientes
 app.use('/pacientes', pacienteRoutes);
