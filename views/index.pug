@@ -1,20 +1,42 @@
-
 extends layout.pug
 
 block content
-  h1 Sistema Hospitalario
-  
-  if dbStatus
-    p Estado de la base de datos: 
-      strong= dbStatus
-    
-    //- Verificar usando texto en lugar de emoji
-    if dbStatus.includes('✅') || dbStatus.includes('exitos')
-      p ¡Todo funciona correctamente!
-      p Ahora puedes continuar con el desarrollo.
-    else
-      p.alert-error Por favor verifica la configuración de MySQL
-  else
-    p.alert-error No se pudo determinar el estado de la base de datos
-    p Por favor revisa los logs del servidor
+  // Marquee estilizado
+  marquee(style="width: 100%; background-color: #0d6efd; color: #fff; padding: 0.5rem 0; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;") Sistema Hospitalario - Proyecto Integrador
 
+  // Hero section with background image
+  section.hero.mb-5(style="background: url('/images/hospital_bg.jpg') no-repeat center center; background-size: cover; height: 300px; position: relative;")
+    .overlay(style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);")
+    .container.h-100.d-flex.flex-column.justify-content-center.align-items-center.text-white
+      h1.display-4.mb-2 Sistema Hospitalario
+      p.lead Bienvenido al sistema de gestión hospitalaria
+
+  // Cards with links to modules
+  .container
+    .row.text-center
+      .col-md-3.mb-4
+        a.text-decoration-none(href="/pacientes")
+          .card.h-100.p-3.shadow-sm
+            i.bi.bi-people.display-1.text-primary
+            h5.mt-2 Pacientes
+      .col-md-3.mb-4
+        a.text-decoration-none(href="/admisiones/nueva")
+          .card.h-100.p-3.shadow-sm
+            i.bi.bi-clipboard-pulse.display-1.text-success
+            h5.mt-2 Admisiones
+      .col-md-3.mb-4
+        a.text-decoration-none(href="/enfermeria")
+          .card.h-100.p-3.shadow-sm
+            i.bi.bi-heart-pulse.display-1.text-warning
+            h5.mt-2 Enfermería
+      .col-md-3.mb-4
+        a.text-decoration-none(href="/medicos")
+          .card.h-100.p-3.shadow-sm
+            i.bi.bi-file-medical.display-1.text-danger
+            h5.mt-2 Médicos
+
+  // Optional footer links or images
+  .container.mt-5
+    .text-center
+      p.text-muted © 2025 Hospital Information System
+      // Puedes agregar logos o imágenes al pie de página aquí

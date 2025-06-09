@@ -4,11 +4,16 @@ const pacienteController = require('../controller/pacienteController');
 
 // Mostrar formulario de nuevo paciente
 router.get('/nuevo', pacienteController.mostrarFormularioNuevo);
-
 // Procesar formulario de nuevo paciente
 router.post('/', pacienteController.crearPaciente);
 
-// Listar pacientes
-router.get('/', pacienteController.listarPacientes);
+// Mostrar formulario para editar un paciente por ID
+router.get('/:id/editar', pacienteController.mostrarFormularioEditar);
+// Procesar el formulario de edición
+router.post('/:id/editar', pacienteController.actualizarPaciente);
 
+
+// Procesar la eliminación de un paciente por ID
+router.post('/:id/eliminar', pacienteController.eliminarPaciente);
+router.get('/', pacienteController.listarPacientes);
 module.exports = router;

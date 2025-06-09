@@ -7,36 +7,42 @@ block content
       a.btn.btn-success(href="/pacientes/nuevo")
         i.bi.bi-person-plus.me-2
         | Nuevo Paciente
-    
+
     if pacientes.length > 0
       .table-responsive
         table.table.table-striped.table-hover
           thead.table-dark
             tr
-              th ID
               th Nombre
-              th F. Nacimiento
+              th Fecha de Nacimiento
               th Género
+              th Dirección
               th Teléfono
               th Contacto Emergencia
               th Acciones
           tbody
             each paciente in pacientes
               tr
-                td= paciente.id
                 td= paciente.nombre
                 td= paciente.fecha_nacimiento
                 td= paciente.genero
-                td= paciente.telefono || 'N/A'
-                td= paciente.contacto_emergencia || 'N/A'
+                td= paciente.direccion
+                td= paciente.telefono
+                td= paciente.contacto_emergencia
                 td
                   .btn-group
                     a.btn.btn-sm.btn-outline-primary(href=`/pacientes/${paciente.id}`)
                       i.bi.bi-eye
                     a.btn.btn-sm.btn-outline-warning.mx-1(href=`/pacientes/${paciente.id}/editar`)
                       i.bi.bi-pencil
-                    button.btn.btn-sm.btn-outline-danger(type="button")
-                      i.bi.bi-trash
+                    form(
+                      method="POST" 
+                      action=`/pacientes/${paciente.id}/eliminar` 
+                      style="display: inline;"
+                      onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este paciente?');"
+                    )
+                      button.btn.btn-sm.btn-outline-danger(type="submit")
+                        i.bi.bi-trash
     else
       .alert.alert-warning
         i.bi.bi-exclamation-triangle.me-2
