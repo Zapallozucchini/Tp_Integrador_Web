@@ -2,6 +2,9 @@
 const express = require('express');
 const db = require('./config/db'); // Asegúrate de que la ruta sea correcta
 const app = express();
+const admisionesRoutes = require('./routes/admisionesRoutes');
+
+
 
 // Configura Pug
 app.set('view engine', 'pug');
@@ -51,3 +54,28 @@ app.get('/', (req, res) => {
 // Usar rutas de pacientes
 app.use('/pacientes', pacienteRoutes);
 
+// Usar rutas de admisiones
+
+app.use('/admisiones', admisionesRoutes);
+
+
+
+const session = require('express-session');
+const flash = require('connect-flash');
+
+app.use(session({
+  secret: 'hospital_secret', // Cambia esto en producción
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(flash());
+
+// Variables globales para las vistas
+app.use((req, res, next) => {
+  res.locals.usuario = req.session.usuario || null;
+  res.locals.mensaje = req.flash('mensaje');
+  next();
+});
+
+const autenticacionRoutes = require('./routes/autenticacionRoutes');
+app.use('/auth', autenticacionRoutes);

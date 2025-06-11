@@ -1,0 +1,20 @@
+extends ../layout.pug
+
+block content
+  .row.justify-content-center
+    .col-md-4
+      .card
+        .card-header.bg-primary.text-white
+          h5 Iniciar Sesión
+        .card-body
+          if mensaje.length
+            .alert.alert-danger= mensaje
+          
+          form(method="POST" action="/auth/login")
+            .mb-3
+              label.form-label Email
+              input.form-control(type="email" name="email" required)
+            .mb-3
+              label.form-label Contraseña
+              input.form-control(type="password" name="password" required)
+            button.btn.btn-primary(type="submit") Ingresar

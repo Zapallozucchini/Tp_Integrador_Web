@@ -1,0 +1,29 @@
+extends ../layout.pug
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card.shadow
+        .card-header.bg-success.text-white
+          h5.mb-0 Nueva Admisión
+        .card-body
+          form(method="POST" action="/admisiones/nueva")
+            .mb-3
+              label.form-label(for="paciente_id") Paciente
+              select.form-select(name="paciente_id" required)
+                option(value="") -- Seleccione --
+                each p in pacientes
+                  option(value=p.id)= p.nombre
+            .mb-3
+              label.form-label(for="cama_id") Cama Disponible
+              select.form-select(name="cama_id" required)
+                option(value="") -- Seleccione --
+                each c in camas
+                  option(value=c.id)= `${c.ala} - Cama ${c.numero}`
+            .mb-3
+              label.form-label(for="motivo") Motivo de Internación
+              textarea.form-control(name="motivo" rows="2" required)
+            button.btn.btn-success(type="submit")
+              i.bi.bi-save-me-2
+              | Registrar Admision
+            a.btn.btn-secondary.ms-2(href="/") Cancelar

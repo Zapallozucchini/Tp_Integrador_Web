@@ -1,0 +1,48 @@
+extends ../layout.pug
+
+block content
+  .d-flex.justify-content-between.mb-4
+    h1 Admisiones
+    a.btn.btn-success(href="/admisiones/nueva")
+      i.bi.bi-plus-circle me-1
+      | Nueva Adm.
+
+  if admisiones.length
+    .table-responsive
+      table.table.table-striped
+        thead.table-dark
+          tr
+            th ID
+            th Paciente
+            th Cama
+            th Fecha Admisión
+            th Motivo
+            th Estado
+            th Acciones
+        tbody
+          each a in admisiones
+            tr
+              td= a.id
+              td= a.paciente
+              td= `${a.ala} - ${a.numero}`
+              td= a.fecha_admision
+              td= a.motivo
+              td= a.estado
+              td
+                a.btn.btn-sm.btn-outline-primary(href=`/admisiones/${a.id}`)
+                  i.bi.bi-eye
+                form(
+                  method="POST" 
+                  action=`/admisiones/${a.id}/actualizar-estado`
+                  class="d-inline"
+                )
+                  select.form-select.form-select-sm(
+                    name="estado",
+                    onchange="this.form.submit()",
+                    style="width: auto; display: inline-block;"
+                  )
+                    option(value="Activa" selected=(a.estado==='Activa')) Activa
+                    option(value="Dada de alta" selected=(a.estado==='Dada de alta')) Dar de alta
+                    option(value="Cancelada" selected=(a.estado==='Cancelada')) Cancelar
+  else
+    .alert.alert-warning No hay admisiones registradas.
