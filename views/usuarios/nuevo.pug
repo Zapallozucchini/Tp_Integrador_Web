@@ -1,0 +1,27 @@
+extends ../layout.pug
+
+block content
+  h1 Nuevo Usuario
+
+  form(method="POST" action="/usuarios/nuevo")
+    .mb-3
+      label.form-label Nombre
+      input.form-control(type="text" name="nombre" required)
+
+    .mb-3
+      label.form-label Email
+      input.form-control(type="email" name="email" required)
+
+    .mb-3
+      label.form-label Contraseña
+      input.form-control(type="password" name="password" required)
+
+    .mb-3
+      label.form-label Rol
+      select.form-select(name="rol" required)
+        option(value="recepcionista") Recepcionista
+        option(value="medico") Médico
+        option(value="enfermero") Enfermero
+        option(value="admin") Administrador
+
+    button.btn.btn-primary(type="submit") Crear Usuario

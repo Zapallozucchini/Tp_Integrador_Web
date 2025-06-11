@@ -1,17 +1,18 @@
 extends layout.pug
 
 block content
-  // Marquee estilizado
-  marquee(style="width: 100%; background-color: #0d6efd; color: #fff; padding: 0.5rem 0; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;") Sistema Hospitalario - Proyecto Integrador
+  //- Marquee estilizado
+  marquee(style="width:100%;background-color:#0d6efd;color:#fff;padding:0.5rem 0;font-size:1.25rem;font-weight:bold;letter-spacing:1px;")
+    | Sistema Hospitalario - Proyecto Integrador
 
-  // Hero section with background image
-  section.hero.mb-5(style="background: url('/images/hospital_bg.jpg') no-repeat center center; background-size: cover; height: 300px; position: relative;")
-    .overlay(style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);")
+  //- Hero section with background image
+  section.hero.mb-5(style="background:url('/images/hospital_bg.jpg') no-repeat center center;background-size:cover;height:300px;position:relative;")
+    .overlay(style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);")
     .container.h-100.d-flex.flex-column.justify-content-center.align-items-center.text-white
       h1.display-4.mb-2 Sistema Hospitalario
       p.lead Bienvenido al sistema de gestión hospitalaria
 
-  // Cards with links to modules
+  //- Cards with links to modules
   .container
     .row.text-center
       .col-md-3.mb-4
@@ -35,8 +36,7 @@ block content
             i.bi.bi-file-medical.display-1.text-danger
             h5.mt-2 Médicos
 
-  // Optional footer links or images
+  //- Pie de página
   .container.mt-5
     .text-center
       p.text-muted © 2025 Hospital Information System
-      // Puedes agregar logos o imágenes al pie de página aquí

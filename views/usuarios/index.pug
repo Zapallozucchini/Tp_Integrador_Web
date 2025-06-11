@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block content
+  h1 Listado de Usuarios
+  a.btn.btn-success(href="/usuarios/nuevo") Nuevo Usuario
+  if usuarios.length
+    table.table.table-striped.mt-3
+      thead
+        tr
+          th ID
+          th Nombre
+          th Email
+          th Rol
+      tbody
+        each u in usuarios
+          tr
+            td= u.id
+            td= u.nombre
+            td= u.email
+            td= u.rol
+  else
+    p No hay usuarios registrados.

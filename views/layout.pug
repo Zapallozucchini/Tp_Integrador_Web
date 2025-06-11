@@ -36,14 +36,14 @@ html(lang="es")
       }
 
   body
-    // Barra de navegación mejorada
+    // Barra de navegación
     nav.navbar.navbar-expand-lg.navbar-dark.bg-primary.sticky-top
       .container
         a.navbar-brand(href="/")
           i.bi.bi-hospital.me-2
           | Sistema Hospitalario
 
-        // Estado de conexión a la BD
+        // Estado de conexión BD
         .connection-status.mx-3
           if dbStatus && dbStatus.includes('✅')
             span.badge.connection-badge.connected
@@ -98,7 +98,8 @@ html(lang="es")
                 i.bi.bi-file-medical.me-1
                 | Médicos
 
-          ul.navbar-nav.ms-auto
+            // Gestión de usuarios: Solo visible para rol admin
+                      ul.navbar-nav.ms-auto
             li.nav-item.dropdown
               a.nav-link.dropdown-toggle(
                 href="#"
@@ -106,7 +107,7 @@ html(lang="es")
                 data-bs-toggle="dropdown"
               )
                 i.bi.bi-person-circle.me-1
-                | Recepcionista
+                | #{usuario ? usuario.rol : 'Invitado'}
               ul.dropdown-menu.dropdown-menu-end
                 li
                   a.dropdown-item(href="#")
@@ -119,9 +120,10 @@ html(lang="es")
                 li
                   hr.dropdown-divider
                 li
-                  a.dropdown-item(href="#")
+                  a.dropdown-item(href="/auth/logout")
                     i.bi.bi-box-arrow-right.me-2
                     | Cerrar sesión
+
 
     .container.my-4
       block content
