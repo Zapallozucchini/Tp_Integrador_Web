@@ -1,0 +1,31 @@
+extends ../layout.pug
+
+block content
+  .container.my-4
+    h1.text-primary.mb-4 
+      i.bi.bi-clipboard-pulse.me-2
+      | Monitoreo de Pacientes
+    
+    if admisiones.length
+      .row.g-4
+        each admision in admisiones
+          .col-md-6.col-lg-4
+            .card.shadow-sm.h-100
+              .card-header.bg-light
+                i.bi.bi-person-fill.me-2
+                | #{admision.paciente}
+              .card-body
+                .d-flex.justify-content-between.mb-3
+                  span.badge.bg-primary Alas #{admision.ala}
+                  span.badge.bg-info Cama #{admision.numero}
+                p.mb-0 
+                  i.bi.bi-calendar-event.me-2
+                  | #{admision.fecha_admision}
+              .card-footer.bg-transparent
+                a.btn.btn-success.w-100(href=`/enfermeria/${admision.id}/signos`)
+                  i.bi.bi-heart-pulse.me-2
+                  | Ver/Registrar Signos
+    else
+      .alert.alert-warning 
+        i.bi.bi-exclamation-diamond.me-2
+        | No hay admisiones activas

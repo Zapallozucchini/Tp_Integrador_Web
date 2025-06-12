@@ -1,0 +1,32 @@
+extends ../layout.pug
+
+block content
+  .row.justify-content-center
+    .col-md-6
+      .card.shadow
+        .card-header.bg-success.text-white
+          h5 
+            i.bi.bi-heart-pulse.me-2
+            | Registrar Signos Vitales
+        .card-body
+          form(method="POST" action=`/enfermeria/${admisionId}/signos/nuevo`)
+            .mb-3
+              label.form-label Temperatura (°C)
+              input.form-control(type="number" step="0.1" name="temperatura" required)
+            .row.mb-3
+              .col
+                label.form-label Presión Arterial
+                input.form-control(type="text" name="presion" placeholder="Ej: 120/80" required)
+              .col
+                label.form-label Pulso (lpm)
+                input.form-control(type="number" name="pulso" required)
+            .mb-3
+              label.form-label Anotaciones
+              textarea.form-control(name="anotaciones" rows="3")
+            .d-grid.gap-2.d-md-flex.justify-content-md-end
+              a.btn.btn-secondary(href=`/enfermeria/${admisionId}/signos`) 
+                i.bi.bi-x-circle.me-2
+                | Cancelar
+              button.btn.btn-success(type="submit")
+                i.bi.bi-save.me-2
+                | Guardar Registro

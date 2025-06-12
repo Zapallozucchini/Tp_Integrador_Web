@@ -2,9 +2,8 @@
 const express = require('express');
 const db = require('./config/db'); // Asegúrate de que la ruta sea correcta
 const app = express();
-const admisionesRoutes = require('./routes/admisionesRoutes');
-
-
+const session = require('express-session');
+const flash = require('connect-flash');
 
 // Configura Pug
 app.set('view engine', 'pug');
@@ -13,6 +12,20 @@ app.set('views', './views');
 // Middleware para parsear datos de formularios y JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(session({
+  secret: 'hospital_secret', // Cambia esto en producción
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(flash());
+
+// VARIABLES GLOBALES PARA LAS VISTAS (mueve esto arriba)
+app.use((req, res, next) => {
+  res.locals.usuario = req.session.usuario || null;
+  res.locals.mensaje = req.flash('mensaje');
+  next();
+});
 
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
@@ -39,9 +52,21 @@ app.use(async (req, res, next) => {
   next();
 });
 
+// --- AHORA VAN TUS RUTAS ---
+const autenticacionRoutes = require('./routes/autenticacionRoutes');
+app.use('/auth', autenticacionRoutes);
 
-// Importar rutas de pacientes
+const usuarioRoutes = require('./routes/usuarioRoutes');
+app.use('/usuarios', usuarioRoutes);
+
+const enfermeriaRoutes = require('./routes/enfermeriaRoutes');
+app.use('/enfermeria', enfermeriaRoutes);
+
 const pacienteRoutes = require('./routes/pacienteRoutes');
+app.use('/pacientes', pacienteRoutes);
+
+const admisionesRoutes = require('./routes/admisionesRoutes');
+app.use('/admisiones', admisionesRoutes);
 
 // Ruta de inicio
 app.get('/', (req, res) => {
@@ -50,35 +75,3 @@ app.get('/', (req, res) => {
     dbStatus: res.locals.dbStatus
   });
 });
-
-// Usar rutas de pacientes
-app.use('/pacientes', pacienteRoutes);
-
-// Usar rutas de admisiones
-
-app.use('/admisiones', admisionesRoutes);
-
-
-
-const session = require('express-session');
-const flash = require('connect-flash');
-
-app.use(session({
-  secret: 'hospital_secret', // Cambia esto en producción
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(flash());
-
-// Variables globales para las vistas
-app.use((req, res, next) => {
-  res.locals.usuario = req.session.usuario || null;
-  res.locals.mensaje = req.flash('mensaje');
-  next();
-});
-
-const autenticacionRoutes = require('./routes/autenticacionRoutes');
-app.use('/auth', autenticacionRoutes);
-
-const usuarioRoutes = require('./routes/usuarioRoutes');
-app.use('/usuarios', usuarioRoutes);

@@ -1,0 +1,41 @@
+extends ../layout.pug
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 
+      i.bi.bi-clipboard-pulse.me-2
+      | Historial de #{admision.paciente}
+    a.btn.btn-success(href=`/enfermeria/${admision.id}/signos/nuevo`)
+      i.bi.bi-plus-circle.me-2
+      | Nuevo Registro
+
+  if signos.length
+    .table-responsive
+      table.table.table-hover
+        thead.table-success
+          tr
+            th Fecha
+            th Temp (°C)
+            th Presión
+            th Pulso
+            th Anotaciones
+        tbody
+          each s in signos
+            tr
+              td 
+                i.bi.bi-calendar-event.me-2
+                | #{s.fecha_registro}
+              td 
+                i.bi.bi-thermometer-half.me-2
+                | #{s.temperatura}
+              td 
+                i.bi.bi-speedometer2.me-2
+                | #{s.presion}
+              td 
+                i.bi.bi-heart.me-2
+                | #{s.pulso}
+              td= s.anotaciones || 'Ninguna'
+  else
+    .alert.alert-warning 
+      i.bi.bi-exclamation-diamond.me-2
+      | No hay registros de signos vitales

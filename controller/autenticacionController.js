@@ -4,7 +4,7 @@ const autenticacionController = require('../controller/autenticacionController')
 const authController = {
 
   formLogin: (req, res) => {
-    res.render('auth/login', { title: 'Iniciar Sesión' });
+    res.render('autenticacion/login', { title: 'Iniciar Sesión' });
   },
 
   login: async (req, res) => {
