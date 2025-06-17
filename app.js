@@ -68,6 +68,10 @@ app.use('/pacientes', pacienteRoutes);
 const admisionesRoutes = require('./routes/admisionesRoutes');
 app.use('/admisiones', admisionesRoutes);
 
+const medicoRoutes = require('./routes/medicoRoutes');
+app.use('/medicos', medicoRoutes);
+
+
 // Ruta de inicio
 app.get('/', (req, res) => {
   res.render('index', {

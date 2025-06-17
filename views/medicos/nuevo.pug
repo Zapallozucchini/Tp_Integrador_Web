@@ -1,0 +1,13 @@
+extends ../layout.pug
+
+block content
+  h1 Registrar Nueva Evolución Médica
+  form(method="POST" action=`/medicos/${admisionId}/evoluciones/nuevo`)
+    .mb-3
+      label.form-label Descripción
+      textarea.form-control(name="descripcion" rows="4" required)
+    button.btn.btn-primary(type="submit")
+      i.bi.bi-save.me-2
+      | Guardar
+    a.btn.btn-secondary.ms-2(href=`/medicos/${admisionId}/evoluciones`)
+      | Cancelar

@@ -1,0 +1,12 @@
+extends ../layout.pug
+
+block content
+  h1 Admisiones Activas
+  if admisiones.length
+    ul.list-group
+      each admision in admisiones
+        li.list-group-item
+          a(href=`/medicos/${admision.id}/evoluciones`)
+            | #{admision.paciente} (Cama #{admision.ala}-#{admision.numero})
+  else
+    .alert.alert-warning No hay admisiones activas.

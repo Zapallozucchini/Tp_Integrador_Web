@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block content
+  h1 Evoluciones de #{admision.paciente} (Cama #{admision.ala}-#{admision.numero})
+  a.btn.btn-success.mb-3(href=`/medicos/${admision.id}/evoluciones/nuevo`)
+    i.bi.bi-plus-circle.me-1
+    | Nueva Evolución
+
+  if evoluciones.length
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th Fecha y Hora
+            th Descripción
+        tbody
+          each e in evoluciones
+            tr
+              td= e.fecha_registro
+              td= e.descripcion
+  else
+    .alert.alert-warning No hay evoluciones registradas.
