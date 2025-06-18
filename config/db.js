@@ -1,14 +1,14 @@
-// db.js
 const mysql = require('mysql2');
-
+const express = require('express');
+const app = express();
 
 // Usa createPool para manejar múltiples conexiones y promesas
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'hospital',
-  port: 3306,
+  host: process.env.MYSQLHOST || 'switchback.proxy.rlwy.net',
+  user: process.env.MYSQLUSER || 'railway',
+  password: process.env.MYSQLPASSWORD || 'o3snoSCxdwB04PdBm5b8wJB6ePusliBZ',
+  database: process.env.MYSQLDATABASE || 'railway',
+  port: process.env.MYSQLPORT ? parseInt(process.env.MYSQLPORT) : 39779,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -25,5 +25,9 @@ pool.getConnection((error, connection) => {
   console.log('✅ Conectado a MySQL. ID de conexión:', connection.threadId);
   connection.release();
 });
+
+app.use(express.static('public'));
+
+const PORT = process.env.PORT || 3000;
 
 module.exports = pool;
