@@ -1,12 +1,36 @@
 extends ../layout.pug
 
 block content
-  h1 Admisiones Activas
-  if admisiones.length
-    ul.list-group
-      each admision in admisiones
-        li.list-group-item
-          a(href=`/medicos/${admision.id}/evoluciones`)
-            | #{admision.paciente} (Cama #{admision.ala}-#{admision.numero})
-  else
-    .alert.alert-warning No hay admisiones activas.
+  .container.my-5
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h1.text-primary.mb-0
+        i.bi.bi-person-badge.me-2
+        | Panel de Médicos
+      a.btn.btn-outline-primary(href="/")
+        i.bi.bi-house-door.me-1
+        | Inicio
+
+    h3.mb-4
+      i.bi.bi-clipboard-pulse.me-2
+      | Admisiones Activas
+
+    if admisiones.length
+      .row.g-4
+        each admision in admisiones
+          .col-md-6.col-lg-4
+            .card.shadow-sm.h-100
+              .card-body
+                h5.card-title.mb-2
+                  i.bi.bi-person-circle.text-info.me-2
+                  | #{admision.paciente}
+                p.mb-1
+                  i.bi.bi-hospital.text-success.me-2
+                  | Cama: 
+                  span.badge.bg-secondary #{admision.ala}-#{admision.numero}
+                a.btn.btn-outline-primary.mt-3(href=`/medicos/${admision.id}/evoluciones`)
+                  i.bi.bi-journal-medical.me-1
+                  | Ver Evoluciones
+    else
+      .alert.alert-warning.mt-4
+        i.bi.bi-exclamation-triangle.me-2
+        | No hay admisiones activas para mostrar.

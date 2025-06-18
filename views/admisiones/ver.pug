@@ -1,0 +1,40 @@
+extends ../layout.pug
+
+block content
+  .container.my-5
+    h1.text-primary.mb-4
+      i.bi.bi-eye.me-2
+      | Detalle de Admisión
+
+    if admision
+      ul.list-group.mb-4
+        li.list-group-item
+          b Paciente: 
+          | #{admision.paciente}
+        li.list-group-item
+          b Cama: 
+          | #{admision.ala}-#{admision.numero}
+        li.list-group-item
+          b Fecha de admisión: 
+          | #{admision.fecha_admision}
+        li.list-group-item
+          b Estado actual: 
+          span.badge.bg-info.text-dark.ms-2 #{admision.estado}
+
+      .d-flex.gap-2.mt-3
+        a.btn.btn-outline-secondary(href="/admisiones")
+          i.bi.bi-arrow-left.me-1
+          | Volver a Admisiones
+
+        //- Formulario para cambiar el estado de la admisión
+        form(method="POST", action=`/admisiones/${admision.id}/actualizar-estado`, class="d-inline-flex align-items-center")
+          select.form-select.form-select-sm(name="nuevo_estado" required style="width:auto;")
+            option(value="" disabled selected) Cambiar estado...
+            option(value="Activa") Activa
+            option(value="Dada de alta") Dada de alta
+            option(value="Cancelada") Cancelada
+          button.btn.btn-outline-warning.btn-sm.ms-2(type="submit")
+            i.bi.bi-arrow-repeat.me-1
+            | Cambiar Estado
+    else
+      .alert.alert-warning No se encontró la admisión.

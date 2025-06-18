@@ -60,49 +60,37 @@ const admisionController = {
   verAdmision: async (req, res) => {
     const { id } = req.params;
     try {
-      const [[admision]] = await req.db.promise().query(`
-        SELECT a.*, p.nombre AS paciente, c.ala, c.numero
-        FROM admisiones a
-        JOIN pacientes p ON a.paciente_id = p.id
-        JOIN camas c      ON a.cama_id      = c.id
-        WHERE a.id = ?
-      `, [id]);
-      if (!admision) return res.status(404).render('error', { message: 'Admisión no encontrada' });
-      res.render('admisiones/ver', { title: 'Detalle de Admisión', admision });
+      const [rows] = await req.db.promise().query(
+        `SELECT a.*, p.nombre AS paciente, c.ala, c.numero
+         FROM admisiones a
+         JOIN pacientes p ON a.paciente_id = p.id
+         JOIN camas c ON a.cama_id = c.id
+         WHERE a.id = ?`,
+        [id]
+      );
+      if (rows.length === 0) {
+        return res.status(404).render('error', { message: 'Admisión no encontrada' });
+      }
+      res.render('admisiones/ver', { admision: rows[0] });
     } catch (error) {
-      console.error(error);
-      res.status(500).render('error', { message: 'Error al cargar detalle.' });
+      console.error('Error al obtener admisión:', error);
+      res.status(500).send('Error interno');
     }
   },
 
   // 2.5 Actualizar estado: dar de alta o cancelar
   actualizarEstado: async (req, res) => {
     const { id } = req.params;
-    const { estado } = req.body; // 'Dada de alta' o 'Cancelada'
-    const conn = req.db.promise();
+    const { nuevo_estado } = req.body;
     try {
-      // 1) Obtener la admisión para recuperar cama_id
-      const [[adm]] = await conn.query('SELECT cama_id FROM admisiones WHERE id = ?', [id]);
-      if (!adm) throw new Error('Admisión no encontrada');
-
-      // 2) Actualizar estado y fecha_alta si corresponde
-      const fechaAltaSql = estado === 'Dada de alta' ? ', fecha_alta = NOW()' : '';
-      await conn.query(
-        `UPDATE admisiones
-         SET estado = ? ${fechaAltaSql}
-         WHERE id = ?`,
-        [estado, id]
+      await req.db.promise().query(
+        'UPDATE admisiones SET estado = ? WHERE id = ?',
+        [nuevo_estado, id]
       );
-
-      // 3) Liberar cama si ya no está 'Activa'
-      if (estado !== 'Activa') {
-        await conn.query('UPDATE camas SET disponible = TRUE WHERE id = ?', [adm.cama_id]);
-      }
-
-      res.redirect('/admisiones');
+      res.redirect(`/admisiones/${id}`); // Redirige al detalle actualizado
     } catch (error) {
-      console.error(error);
-      res.status(500).render('error', { message: 'No se pudo actualizar estado.' });
+      console.error('Error actualizando estado:', error);
+      res.status(500).send('Error actualizando estado');
     }
   }
 
