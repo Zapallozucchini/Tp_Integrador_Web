@@ -1,4 +1,3 @@
-
 require('dotenv').config(); // <-- Esto debe ir primero
 const express = require('express');
 const db = require('./config/db'); // Asegúrate de que la ruta sea correcta
@@ -71,6 +70,9 @@ app.use('/admisiones', admisionesRoutes);
 
 const medicoRoutes = require('./routes/medicoRoutes');
 app.use('/medicos', medicoRoutes);
+
+const habitacionRoutes = require('./routes/habitacionRoutes');
+app.use('/habitaciones', habitacionRoutes);
 
 
 // Ruta de inicio

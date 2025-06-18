@@ -1,0 +1,25 @@
+extends ../layout.pug
+
+block content
+  .container.my-5
+    h1.text-primary.mb-4
+      i.bi.bi-door-open.me-2
+      | Habitaciones
+
+    if habitaciones.length
+      table.table.table-hover
+        thead
+          tr
+            th ID
+            th Número
+            th Piso
+            th Estado
+        tbody
+          each h in habitaciones
+            tr
+              td= h.id
+              td= h.numero
+              td= h.piso
+              td= h.estado
+    else
+      .alert.alert-info No hay habitaciones registradas.
