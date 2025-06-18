@@ -1,14 +1,14 @@
 const mysql = require('mysql2');
 const express = require('express');
 const app = express();
-
+require('dotenv').config();
 // Usa createPool para manejar múltiples conexiones y promesas
 const pool = mysql.createPool({
-  host: process.env.MYSQLHOST || 'switchback.proxy.rlwy.net',
-  user: process.env.MYSQLUSER || 'railway',
-  password: process.env.MYSQLPASSWORD || 'o3snoSCxdwB04PdBm5b8wJB6ePusliBZ',
-  database: process.env.MYSQLDATABASE || 'railway',
-  port: process.env.MYSQLPORT ? parseInt(process.env.MYSQLPORT) : 39779,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

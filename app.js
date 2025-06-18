@@ -1,4 +1,5 @@
-// app.js
+
+require('dotenv').config(); // <-- Esto debe ir primero
 const express = require('express');
 const db = require('./config/db'); // Asegúrate de que la ruta sea correcta
 const app = express();
