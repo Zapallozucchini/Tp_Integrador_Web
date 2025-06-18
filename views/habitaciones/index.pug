@@ -2,24 +2,46 @@ extends ../layout.pug
 
 block content
   .container.my-5
-    h1.text-primary.mb-4
-      i.bi.bi-door-open.me-2
-      | Habitaciones
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h1.text-primary.mb-0
+        i.bi.bi-door-open.me-2
+        | Habitaciones
+      a.btn.btn-success(href="/habitaciones/nueva")
+        i.bi.bi-plus-circle.me-1
+        | Nueva Habitación
 
     if habitaciones.length
-      table.table.table-hover
+      table.table.table-hover.align-middle
         thead
           tr
             th ID
             th Número
             th Piso
             th Estado
+            th Acciones
         tbody
           each h in habitaciones
             tr
               td= h.id
               td= h.numero
               td= h.piso
-              td= h.estado
+              td
+                if h.estado == 'Ocupada'
+                  span.badge.bg-danger Ocupada
+                else if h.estado == 'Disponible'
+                  span.badge.bg-success Disponible
+                else
+                  span.badge.bg-secondary= h.estado
+              td
+                a.btn.btn-outline-primary.btn-sm.me-2(href=`/habitaciones/${h.id}/editar`)
+                  i.bi.bi-pencil
+                  | Editar
+                a.btn.btn-outline-info.btn-sm.me-2(href=`/habitaciones/${h.id}/admisiones`)
+                  i.bi.bi-clipboard-pulse
+                  | Admisiones
+                form.d-inline(method="POST", action=`/habitaciones/${h.id}/eliminar`, onsubmit="return confirm('¿Eliminar habitación?');")
+                  button.btn.btn-outline-danger.btn-sm(type="submit")
+                    i.bi.bi-trash
+                    | Eliminar
     else
       .alert.alert-info No hay habitaciones registradas.

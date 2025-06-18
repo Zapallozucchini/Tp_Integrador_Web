@@ -1,0 +1,34 @@
+extends ../layout.pug
+
+block content
+  .container.my-5
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h1.text-primary.mb-0
+        i.bi.bi-door-open.me-2
+        | Nueva Habitación
+      a.btn.btn-outline-secondary(href="/habitaciones")
+        i.bi.bi-arrow-left.me-1
+        | Volver al listado
+
+    .card.shadow-sm
+      .card-body
+        form(method="POST", action="/habitaciones/nueva")
+          .mb-3
+            label.form-label(for="numero") Número de Habitación
+            input.form-control(type="number", name="numero", id="numero", required, min="1", placeholder="Ej: 101")
+          .mb-3
+            label.form-label(for="piso") Piso
+            input.form-control(type="number", name="piso", id="piso", required, min="1", placeholder="Ej: 1")
+          .mb-3
+            label.form-label(for="estado") Estado
+            select.form-select(name="estado", id="estado", required)
+              option(value="Disponible") Disponible
+              option(value="Ocupada") Ocupada
+              option(value="Mantenimiento") Mantenimiento
+          .d-flex.justify-content-between
+            button.btn.btn-success(type="submit")
+              i.bi.bi-plus-circle.me-1
+              | Crear Habitación
+            a.btn.btn-outline-primary(href="/admisiones")
+              i.bi.bi-clipboard-pulse.me-1
+              | Ir a Admisiones

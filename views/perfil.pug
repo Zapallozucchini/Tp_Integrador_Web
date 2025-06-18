@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+  .container.my-5
+    .row.justify-content-center
+      .col-md-6
+        .card.shadow
+          .card-body.text-center
+            i.bi.bi-person-circle.display-1.text-primary.mb-3
+            h2.mb-4.text-primary Perfil de Usuario
+            if usuario
+              h4.mb-2= usuario.nombre
+              p.text-muted.mb-1
+                i.bi.bi-envelope.me-2
+                | #{usuario.email}
+              a.btn.btn-outline-primary.mt-4(href="/") 
+                i.bi.bi-house.me-1
+                | Volver al inicio
+            else
+              .alert.alert-warning.mt-3 Debe iniciar sesión para ver su perfil.
+              a.btn.btn-primary.mt-3(href="/login")
+                i.bi.bi-box-arrow-in-right.me-1
+                | Ir a Login

@@ -74,6 +74,8 @@ app.use('/medicos', medicoRoutes);
 const habitacionRoutes = require('./routes/habitacionRoutes');
 app.use('/habitaciones', habitacionRoutes);
 
+const perfilRoutes = require('./routes/perfilRoutes');
+app.use('/perfil', perfilRoutes);
 
 // Ruta de inicio
 app.get('/', (req, res) => {

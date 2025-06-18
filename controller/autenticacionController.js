@@ -1,8 +1,5 @@
 const bcrypt = require('bcryptjs');
-const autenticacionController = require('../controller/autenticacionController');
-
-const authController = {
-
+const autenticacionController = {
   formLogin: (req, res) => {
     res.render('autenticacion/login', { title: 'Iniciar Sesión' });
   },
@@ -44,4 +41,4 @@ const authController = {
   }
 };
 
-module.exports = authController;
+module.exports = autenticacionController;

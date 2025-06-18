@@ -110,15 +110,9 @@ html(lang="es")
                 | #{usuario ? usuario.rol : 'Invitado'}
               ul.dropdown-menu.dropdown-menu-end
                 li
-                  a.dropdown-item(href="#")
+                  a.dropdown-item(href="/perfil")
                     i.bi.bi-person.me-2
                     | Mi perfil
-                li
-                  a.dropdown-item(href="#")
-                    i.bi.bi-gear.me-2
-                    | Configuración
-                li
-                  hr.dropdown-divider
                 li
                   a.dropdown-item(href="/auth/logout")
                     i.bi.bi-box-arrow-right.me-2
