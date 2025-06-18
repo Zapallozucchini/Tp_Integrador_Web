@@ -8,10 +8,13 @@ const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
+  port: process.env.DB_PORT,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  dialect: 'mysql',
+    dialectModule: mysql,
+    logging: false,
 });
 
 // Prueba la conexión al iniciar
@@ -28,6 +31,6 @@ pool.getConnection((error, connection) => {
 
 app.use(express.static('public'));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 module.exports = pool;
